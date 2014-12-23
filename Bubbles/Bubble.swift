@@ -14,8 +14,8 @@ enum BubbleColor {
     
     func toColor() -> UIColor {
         switch self {
-        case .Blue: return UIColor.blueColor()
-        case .Yellow: return UIColor.yellowColor()
+        case .Blue: return UIColor(red:0.13, green:0.73, blue:0.99, alpha:1)
+        case .Yellow: return UIColor(red:1, green:0.74, blue:0.17, alpha:1)
         default: return UIColor.blackColor()
         }
     }
@@ -35,5 +35,11 @@ class Bubble: UIView {
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.layer.cornerRadius = frame.size.width / 2.0
     }
 }
