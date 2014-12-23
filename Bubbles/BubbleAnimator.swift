@@ -57,9 +57,9 @@ class BubbleAnimator: NSObject {
         UIView.animateWithDuration(BubbleBounceDuration, animations: {
             var x = self.originView.center.x
             if self.originView.center.x < self.destinationView.center.x {
-                x = self.originView.center.x + bouncePadding
+                x = self.destinationView.center.x - bouncePadding
             } else {
-                x = self.originView.center.x - bouncePadding
+                x = self.destinationView.center.x + bouncePadding
             }
             self.originView.center = CGPointMake(x, originCenter.y)
         }) { (success) -> Void in
@@ -79,7 +79,7 @@ class BubbleAnimator: NSObject {
     }
     
     private func bounceBack(#originView: UIView, originLocation: CGPoint) {
-        UIView.animateWithDuration(BubbleBounceDuration, animations: { () -> Void in
+        UIView.animateWithDuration(BubbleBounceDuration * 1.5, animations: { () -> Void in
             originView.center = originLocation
             }) { (success) -> Void in
                 
