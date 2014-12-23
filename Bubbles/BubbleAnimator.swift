@@ -8,6 +8,7 @@
 
 import UIKit
 
+let BubbleBouncedPostionOffset: CGFloat = 5.0
 let BubbleBouncedOffset: CGFloat = 10.0
 let BubbleBounceDuration: NSTimeInterval = 0.15
 
@@ -28,19 +29,19 @@ class BubbleAnimator: NSObject {
     // MARK: - Animations
     
     func animate() {
-        self.shake(originView)
+        self.shake()
     }
     
     // MARK: Shake
     
-    private func shake(view: UIView) {
-        var animation = CABasicAnimation(keyPath: "transform.scale")
+    private func shake() {
+        var animation = CABasicAnimation(keyPath: "position.y")
         animation.duration = 0.1
         animation.repeatCount = 2
         animation.autoreverses = true
-        animation.toValue = 1.15
+        animation.toValue  = originView.center.y - BubbleBouncedPostionOffset
         animation.delegate = self
-        view.layer.addAnimation(animation, forKey: "shake")
+        originView.layer.addAnimation(animation, forKey: "position")
     }
     
     override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
@@ -54,10 +55,22 @@ class BubbleAnimator: NSObject {
         let destinationCenter = destinationView.center
         let bouncePadding = destinationView.frame.size.width / 2.0 + originView.frame.size.width / 2.0
         UIView.animateWithDuration(BubbleBounceDuration, animations: {
-            self.originView.center = CGPointMake(self.destinationView.center.x - bouncePadding, originCenter.y)
+            var x = self.originView.center.x
+            if self.originView.center.x < self.destinationView.center.x {
+                x = self.originView.center.x + bouncePadding
+            } else {
+                x = self.originView.center.x - bouncePadding
+            }
+            self.originView.center = CGPointMake(x, originCenter.y)
         }) { (success) -> Void in
             UIView.animateWithDuration(BubbleBounceDuration / 2.0, animations: { () -> Void in
-                self.destinationView.center = CGPointMake(self.destinationView.center.x + BubbleBouncedOffset, destinationCenter.y)
+                var x = self.destinationView.center.x
+                if self.originView.center.x < self.destinationView.center.x {
+                    x = self.destinationView.center.x + BubbleBouncedOffset
+                } else {
+                    x = self.destinationView.center.x - BubbleBouncedOffset
+                }
+                self.destinationView.center = CGPointMake(x, destinationCenter.y)
                 }) { (success) -> Void in
                     self.bounceBack(originView: self.originView, originLocation: originCenter)
                     self.bounceBack(originView: self.destinationView, originLocation: destinationCenter)
