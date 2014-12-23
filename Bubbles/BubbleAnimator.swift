@@ -37,27 +37,21 @@ class BubbleAnimator: NSObject {
     // MARK: Shake
     
     private func shake(#scale: CGFloat) {
-        var positionAnimation = JNWSpringAnimation(keyPath: "position.y")
-        positionAnimation.fromValue = originView.center.y
-        positionAnimation.toValue  = originView.center.y + (originView.layer.bounds.size.height - (scale * originView.layer.bounds.size.height)) / 2.0
-        positionAnimation.damping = 8
-        positionAnimation.stiffness = 250
-        positionAnimation.mass = 1
-        
-        var scaleAnimation = JNWSpringAnimation(keyPath: "transform.scale")
-        scaleAnimation.fromValue = originView.layer.contentsScale
-        scaleAnimation.toValue = scale
-        scaleAnimation.damping = positionAnimation.damping
-        scaleAnimation.stiffness = positionAnimation.stiffness
-        scaleAnimation.mass = positionAnimation.mass
-        
-        var animations = CAAnimationGroup()
-        animations.animations = [positionAnimation, scaleAnimation]
-        animations.duration = 0.35
-        animations.delegate = self
-        animations.removedOnCompletion = false
-        animations.fillMode = kCAFillModeForwards
-        originView.layer.addAnimation(animations, forKey: "position")
+        UIView.animateWithDuration(0.35, delay: 0.0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.3, options: .CurveEaseInOut, animations: { () -> Void in
+            let heightRatio = (self.originView.layer.frame.size.height - (scale * self.originView.frame.size.height))
+            let widthRatio = (self.originView.layer.frame.size.width - (scale * self.originView.frame.size.width))
+            
+            let y = self.originView.frame.origin.y + heightRatio
+            var x = self.originView.frame.origin.x
+            if self.originView.center.x < self.destinationView.center.x {
+                x += widthRatio
+            } else {
+                x -= widthRatio
+            }
+                self.originView.frame = CGRectMake(x, y, self.originView.frame.size.width * scale, self.originView.frame.size.height * scale)
+        }) { (success) -> Void in
+            self.bounce()
+        }
     }
     
     override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {

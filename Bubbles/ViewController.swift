@@ -43,9 +43,9 @@ class ViewController: UIViewController {
     @IBAction func tap(sender: UITapGestureRecognizer) {
         let touch = sender.locationInView(view)
         if touch.x < view.bounds.size.width / 2.0 {
-            BubbleAnimator(originView: blueBubble!, destinationView: yellowBubble!).animate(scale: 1.2)
+            BubbleAnimator(originView: blueBubble!, destinationView: yellowBubble!).animate(scale: 1.1)
         } else {
-            BubbleAnimator(originView: yellowBubble!, destinationView: blueBubble!).animate(scale: 1.2)
+            BubbleAnimator(originView: yellowBubble!, destinationView: blueBubble!).animate(scale: 1.1)
         }
     }
     
