@@ -21,11 +21,13 @@ class ViewController: UIViewController {
         let center = view.bounds.size.width / 2.0
         
         blueBubble = Bubble(color: .Blue)
-        blueBubble!.frame = CGRectMake(center - 60.0, 200.0, 60.0, 60.0)
+        blueBubble!.frame = CGRectMake(0, 200.0, 100.0, 100.0)
+        blueBubble!.center = CGPointMake(center - 50.0, blueBubble!.center.y)
         view.addSubview(blueBubble!)
         
         yellowBubble = Bubble(color: .Yellow)
-        yellowBubble!.frame = CGRectMake(center + 40.0, 220.0, 40.0, 40.0)
+        yellowBubble!.frame = CGRectMake(0, 240.0, 60.0, 60.0)
+        yellowBubble!.center = CGPointMake(center + 50.0, yellowBubble!.center.y)
         view.addSubview(yellowBubble!)
         
         // WE LOVE CRAPPY VIEWS!

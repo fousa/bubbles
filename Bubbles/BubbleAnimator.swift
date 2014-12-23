@@ -9,7 +9,7 @@
 import UIKit
 
 let BubbleBouncedPostionOffset: CGFloat = 5.0
-let BubbleBouncedOffset: CGFloat = 10.0
+let BubbleBouncedOffset: CGFloat = 5.0
 let BubbleBounceDuration: NSTimeInterval = 0.15
 
 class BubbleAnimator: NSObject {
@@ -63,7 +63,7 @@ class BubbleAnimator: NSObject {
             }
             self.originView.center = CGPointMake(x, originCenter.y)
         }) { (success) -> Void in
-            UIView.animateWithDuration(BubbleBounceDuration / 2.0, animations: { () -> Void in
+            UIView.animateWithDuration(BubbleBounceDuration * 1.2, animations: { () -> Void in
                 var x = self.destinationView.center.x
                 if self.originView.center.x < self.destinationView.center.x {
                     x = self.destinationView.center.x + BubbleBouncedOffset
@@ -72,14 +72,14 @@ class BubbleAnimator: NSObject {
                 }
                 self.destinationView.center = CGPointMake(x, destinationCenter.y)
                 }) { (success) -> Void in
-                    self.bounceBack(originView: self.originView, originLocation: originCenter)
                     self.bounceBack(originView: self.destinationView, originLocation: destinationCenter)
             }
+            self.bounceBack(originView: self.originView, originLocation: originCenter)
         }
     }
     
     private func bounceBack(#originView: UIView, originLocation: CGPoint) {
-        UIView.animateWithDuration(BubbleBounceDuration * 1.5, animations: { () -> Void in
+        UIView.animateWithDuration(BubbleBounceDuration * 1.6, animations: { () -> Void in
             originView.center = originLocation
             }) { (success) -> Void in
                 
