@@ -10,12 +10,13 @@ import UIKit
 
 let BubbleBouncedPostionOffset: CGFloat = 5.0
 let BubbleBouncedOffset: CGFloat = 5.0
-let BubbleBounceDuration: NSTimeInterval = 0.15
+let BubbleBounceDuration: NSTimeInterval = 0.25
 
 class BubbleAnimator: NSObject {
     
     private var originView: UIView
     private var destinationView: UIView
+    private var scale: CGFloat?
     
     // MARK: - Init
     
@@ -28,20 +29,35 @@ class BubbleAnimator: NSObject {
     
     // MARK: - Animations
     
-    func animate() {
-        self.shake()
+    func animate(#scale: CGFloat) {
+        self.scale = scale
+        self.shake(scale: scale)
     }
     
     // MARK: Shake
     
-    private func shake() {
-        var animation = CABasicAnimation(keyPath: "position.y")
-        animation.duration = 0.1
-        animation.repeatCount = 2
-        animation.autoreverses = true
-        animation.toValue  = originView.center.y - BubbleBouncedPostionOffset
-        animation.delegate = self
-        originView.layer.addAnimation(animation, forKey: "position")
+    private func shake(#scale: CGFloat) {
+        var positionAnimation = JNWSpringAnimation(keyPath: "position.y")
+        positionAnimation.fromValue = originView.center.y
+        positionAnimation.toValue  = originView.center.y + (originView.layer.bounds.size.height - (scale * originView.layer.bounds.size.height)) / 2.0
+        positionAnimation.damping = 8
+        positionAnimation.stiffness = 250
+        positionAnimation.mass = 1
+        
+        var scaleAnimation = JNWSpringAnimation(keyPath: "transform.scale")
+        scaleAnimation.fromValue = originView.layer.contentsScale
+        scaleAnimation.toValue = scale
+        scaleAnimation.damping = positionAnimation.damping
+        scaleAnimation.stiffness = positionAnimation.stiffness
+        scaleAnimation.mass = positionAnimation.mass
+        
+        var animations = CAAnimationGroup()
+        animations.animations = [positionAnimation, scaleAnimation]
+        animations.duration = 0.35
+        animations.delegate = self
+        animations.removedOnCompletion = false
+        animations.fillMode = kCAFillModeForwards
+        originView.layer.addAnimation(animations, forKey: "position")
     }
     
     override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
@@ -53,7 +69,7 @@ class BubbleAnimator: NSObject {
     private func bounce() {
         let originCenter = originView.center
         let destinationCenter = destinationView.center
-        let bouncePadding = destinationView.frame.size.width / 2.0 + originView.frame.size.width / 2.0
+        let bouncePadding = destinationView.layer.bounds.size.width / 2.0 + originView.layer.bounds.size.width / 2.0
         UIView.animateWithDuration(BubbleBounceDuration, animations: {
             var x = self.originView.center.x
             if self.originView.center.x < self.destinationView.center.x {

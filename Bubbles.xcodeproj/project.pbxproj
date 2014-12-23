@@ -15,6 +15,8 @@
 		62C3B3EE1A49C3E200902933 /* BubblesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C3B3ED1A49C3E200902933 /* BubblesTests.swift */; };
 		62C3B3F81A49C48400902933 /* Bubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C3B3F71A49C48400902933 /* Bubble.swift */; };
 		62C3B3FA1A49F20200902933 /* BubbleAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C3B3F91A49F20200902933 /* BubbleAnimator.swift */; };
+		62C3B4021A4A114700902933 /* JNWSpringAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 62C3B3FE1A4A114700902933 /* JNWSpringAnimation.m */; };
+		62C3B4031A4A114700902933 /* NSValue+JNWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 62C3B4001A4A114700902933 /* NSValue+JNWAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,11 @@
 		62C3B3ED1A49C3E200902933 /* BubblesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubblesTests.swift; sourceTree = "<group>"; };
 		62C3B3F71A49C48400902933 /* Bubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bubble.swift; sourceTree = "<group>"; };
 		62C3B3F91A49F20200902933 /* BubbleAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleAnimator.swift; sourceTree = "<group>"; };
+		62C3B3FD1A4A114700902933 /* JNWSpringAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JNWSpringAnimation.h; sourceTree = "<group>"; };
+		62C3B3FE1A4A114700902933 /* JNWSpringAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JNWSpringAnimation.m; sourceTree = "<group>"; };
+		62C3B3FF1A4A114700902933 /* NSValue+JNWAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+JNWAdditions.h"; sourceTree = "<group>"; };
+		62C3B4001A4A114700902933 /* NSValue+JNWAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+JNWAdditions.m"; sourceTree = "<group>"; };
+		62C3B4071A4A11A200902933 /* Bubbles-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bubbles-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,11 +91,13 @@
 				62C3B3F71A49C48400902933 /* Bubble.swift */,
 				62C3B3F91A49F20200902933 /* BubbleAnimator.swift */,
 				62C3B3D91A49C3E200902933 /* ViewController.swift */,
-				62C3B3DB1A49C3E200902933 /* Main.storyboard */,
-				62C3B3DE1A49C3E200902933 /* Images.xcassets */,
-				62C3B3E01A49C3E200902933 /* LaunchScreen.xib */,
 				62C3B3D71A49C3E200902933 /* AppDelegate.swift */,
+				62C3B3DB1A49C3E200902933 /* Main.storyboard */,
+				62C3B3E01A49C3E200902933 /* LaunchScreen.xib */,
+				62C3B3DE1A49C3E200902933 /* Images.xcassets */,
+				62C3B3FB1A4A114700902933 /* JNWSpringAnimation */,
 				62C3B3D51A49C3E200902933 /* Supporting Files */,
+				62C3B4071A4A11A200902933 /* Bubbles-Bridging-Header.h */,
 			);
 			path = Bubbles;
 			sourceTree = "<group>";
@@ -116,6 +125,17 @@
 				62C3B3EC1A49C3E200902933 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		62C3B3FB1A4A114700902933 /* JNWSpringAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				62C3B3FD1A4A114700902933 /* JNWSpringAnimation.h */,
+				62C3B3FE1A4A114700902933 /* JNWSpringAnimation.m */,
+				62C3B3FF1A4A114700902933 /* NSValue+JNWAdditions.h */,
+				62C3B4001A4A114700902933 /* NSValue+JNWAdditions.m */,
+			);
+			path = JNWSpringAnimation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,9 +238,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62C3B4021A4A114700902933 /* JNWSpringAnimation.m in Sources */,
 				62C3B3DA1A49C3E200902933 /* ViewController.swift in Sources */,
 				62C3B3F81A49C48400902933 /* Bubble.swift in Sources */,
 				62C3B3FA1A49F20200902933 /* BubbleAnimator.swift in Sources */,
+				62C3B4031A4A114700902933 /* NSValue+JNWAdditions.m in Sources */,
 				62C3B3D81A49C3E200902933 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,6 +369,7 @@
 				INFOPLIST_FILE = Bubbles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bubbles/Bubbles-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -357,6 +380,7 @@
 				INFOPLIST_FILE = Bubbles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bubbles/Bubbles-Bridging-Header.h";
 			};
 			name = Release;
 		};

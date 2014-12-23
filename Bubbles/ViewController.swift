@@ -12,21 +12,25 @@ class ViewController: UIViewController {
     
     private var blueBubble: Bubble?;
     private var yellowBubble: Bubble?;
+    
+    private var blueDimension: CGFloat = 60.0
+    private var yellowDimension: CGFloat = 60.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(red:0.19, green:0.3, blue:0.42, alpha:1)
         
+        let y = 200.0 as CGFloat
         let center = view.bounds.size.width / 2.0
         
         blueBubble = Bubble(color: .Blue)
-        blueBubble!.frame = CGRectMake(0, 200.0, 100.0, 100.0)
+        blueBubble!.frame = CGRectMake(0, y, blueDimension, blueDimension)
         blueBubble!.center = CGPointMake(center - 50.0, blueBubble!.center.y)
         view.addSubview(blueBubble!)
         
         yellowBubble = Bubble(color: .Yellow)
-        yellowBubble!.frame = CGRectMake(0, 240.0, 60.0, 60.0)
+        yellowBubble!.frame = CGRectMake(0, y, yellowDimension, yellowDimension)
         yellowBubble!.center = CGPointMake(center + 50.0, yellowBubble!.center.y)
         view.addSubview(yellowBubble!)
         
@@ -39,9 +43,9 @@ class ViewController: UIViewController {
     @IBAction func tap(sender: UITapGestureRecognizer) {
         let touch = sender.locationInView(view)
         if touch.x < view.bounds.size.width / 2.0 {
-            BubbleAnimator(originView: blueBubble!, destinationView: yellowBubble!).animate()
+            BubbleAnimator(originView: blueBubble!, destinationView: yellowBubble!).animate(scale: 1.2)
         } else {
-            BubbleAnimator(originView: yellowBubble!, destinationView: blueBubble!).animate()
+            BubbleAnimator(originView: yellowBubble!, destinationView: blueBubble!).animate(scale: 1.2)
         }
     }
     
